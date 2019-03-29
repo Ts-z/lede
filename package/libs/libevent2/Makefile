@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2015 OpenWrt.org
+# Copyright (C) 2011-2015 kunteng.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,16 +9,15 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libevent2
 PKG_VERSION:=2.1.8
-PKG_RELEASE:=2
+PKG_RELEASE:=1
 
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL=https://gitee.com/apfree/kunteng_libevent2.git
+PKG_SOURCE_VERSION:=release-2.1.8-stable
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=libevent-$(PKG_VERSION)-stable.tar.gz
-PKG_SOURCE_URL:=https://github.com/libevent/libevent/releases/download/release-$(PKG_VERSION)-stable
-PKG_HASH:=965cc5a8bb46ce4199a47e9b2c9e1cae3b137e8356ffdad6d94d3b9069b71dc2
-PKG_BUILD_DIR:=$(BUILD_DIR)/libevent-$(PKG_VERSION)-stable
-
-PKG_MAINTAINER:=Jo-Philipp Wich <jo@mein.io>
+PKG_MAINTAINER:=Dengfeng Liu <liudengfeng@kunteng.org>
 PKG_LICENSE:=BSD-3-Clause
-PKG_CPE_ID:=cpe:/a:libevent_project:libevent
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -30,7 +29,8 @@ define Package/libevent2/Default
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Event notification
-  URL:=http://libevent.org
+  URL:=http://www.monkey.org/~provos/libevent/
+  DEPENDS+=+libopenssl
 endef
 
 define Package/libevent2/Default/description
@@ -47,7 +47,7 @@ endef
 
 define Package/libevent2
   $(call Package/libevent2/Default)
-  TITLE+= library (version 2.1)
+  TITLE+= library (version 2.0)
 endef
 
 define Package/libevent2/description
@@ -59,7 +59,7 @@ endef
 
 define Package/libevent2-core
   $(call Package/libevent2/Default)
-  TITLE+= core library (version 2.1)
+  TITLE+= core library (version 2.0)
 endef
 
 define Package/libevent2-core/description
@@ -71,7 +71,7 @@ endef
 
 define Package/libevent2-extra
   $(call Package/libevent2/Default)
-  TITLE+= extra library (version 2.1)
+  TITLE+= extra library (version 2.0)
 endef
 
 define Package/libevent2-extra/description
@@ -83,8 +83,7 @@ endef
 
 define Package/libevent2-openssl
   $(call Package/libevent2/Default)
-  TITLE+= OpenSSL library (version 2.1)
-  DEPENDS+=+libopenssl
+  TITLE+= OpenSSL library (version 2.0)
 endef
 
 define Package/libevent2-openssl/description
@@ -96,7 +95,7 @@ endef
 
 define Package/libevent2-pthreads
   $(call Package/libevent2/Default)
-  TITLE+= Pthreads library (version 2.1)
+  TITLE+= Pthreads library (version 2.0)
   DEPENDS+=+libpthread
 endef
 
