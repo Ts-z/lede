@@ -232,8 +232,33 @@ define Device/k2p
   DTS := K2P
   IMAGE_SIZE := $(ralink_default_fw_size_16M)
   DEVICE_TITLE := Phicomm K2P
+  DEVICE_PACKAGES := kmod-mt7615e wpad-basic
 endef
 TARGET_DEVICES += k2p
+
+define Device/adslr_g7
+  DTS := ADSLR-G7
+  IMAGE_SIZE := 16064k
+  DEVICE_TITLE := ADSLR G7
+  DEVICE_PACKAGES := kmod-mt7615e wpad-basic
+endef
+TARGET_DEVICES += adslr_g7
+
+define Device/xiaomi_mir3p
+  DTS := MIR3P
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  KERNEL_SIZE:= 4096k
+  UBINIZE_OPTS := -E 5
+  IMAGE_SIZE := $(ralink_default_fw_size_32M)
+  DEVICE_TITLE := Xiaomi Mi Router 3 Pro
+  IMAGES += factory.bin
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | check-size $$$$(IMAGE_SIZE)
+  DEVICE_PACKAGES := \
+	kmod-usb3 kmod-usb-ledtrig-usbport wpad-basic uboot-envtools
+endef
+TARGET_DEVICES += xiaomi_mir3p
 
 define Device/mir3g
   DTS := MIR3G
@@ -554,6 +579,15 @@ define Device/wsr-600
   DEVICE_PACKAGES := kmod-mt7603 kmod-rt2800-pci wpad-basic
 endef
 TARGET_DEVICES += wsr-600
+
+define Device/XiaoYu-C5
+  DTS := XiaoYu-C5
+  IMAGE_SIZE := $(ralink_default_fw_size_32M)
+  DEVICE_TITLE := XiaoYu-C5
+  DEVICE_PACKAGES := \
+	kmod-ata-core kmod-ata-ahci kmod-usb3 kmod-usb-ledtrig-usbport wpad-basic
+endef
+TARGET_DEVICES += XiaoYu-C5
 
 define Device/zbt-we1326
   DTS := ZBT-WE1326

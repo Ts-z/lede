@@ -47,6 +47,7 @@ o.inputstyle = "reset"
 o.description = string.format(translate("Server Count") ..  ": %d", server_count)
 o.write = function()
   uci:delete_all("shadowsocksr", "servers", function(s) return true end)
+  uci:save("shadowsocksr") 
   luci.sys.call("uci commit shadowsocksr && /etc/init.d/shadowsocksr stop") 
   luci.http.redirect(luci.dispatcher.build_url("admin", "services", "shadowsocksr", "servers"))
 end
@@ -86,7 +87,7 @@ function o.cfgvalue(...)
 	return Value.cfgvalue(...) or "?"
 end
 
-if nixio.fs.access("/usr/bin/ssr-kcptun") then
+if nixio.fs.access("/usr/bin/kcptun-client") then
 
 o = s:option(DummyValue, "kcp_enable", translate("KcpTun"))
 function o.cfgvalue(...)
